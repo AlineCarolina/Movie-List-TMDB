@@ -1,12 +1,26 @@
 import axios from "axios";
 
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+
 const api = axios.create({
-  baseURL: "https://api.example.com",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYWFkNWY3ODA2ODlhYjYyN2Y0YjEyY2NiMGY2YjlhYSIsIm5iZiI6MTc2MTA4MDk5NS42Nywic3ViIjoiNjhmN2Y2YTM5YTI3MmU2MzAyY2FjMjk0Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.ABl6wUl6EXupq420XMAm_TWAbEaBOoHCZ3x74Vqj7dQ"
   },
 });
 
 export default api;
 
+export async function getMoviesFromTMDB(query: string) {
+  const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+    params: {
+      query: query,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
+    },
+  });
+
+  return response.data.results;
+}

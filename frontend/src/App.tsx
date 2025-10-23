@@ -1,15 +1,14 @@
-import Home from './pages/Home.tsx';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
-
   return (
-    <>
-    <div className="bg-blue-500 text-white p-10 text-2xl">
-      Tailwind funcionando! 🚀
-    </div>
-      <Home />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SearchPage />} />
+      </Routes>
+    </Router>
   )
-}
+};
 
-export default App
+export default App;
